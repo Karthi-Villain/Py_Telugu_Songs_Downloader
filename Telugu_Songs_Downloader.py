@@ -6,7 +6,7 @@ import json
 #Enter the Song Name Below
 SongName=input("Enter the Song Name :")
 #==============[Just Counter]===============
-res=s.get('https://bit.ly/SongsScript',headers=Headers)
+res=requests.get('https://bit.ly/SongsScript',headers=Headers)
 #===========================================
 NaaSongsUrl=f"https://www.isongs.info/?label=telugu&q={SongName.strip().replace(' ','+')}"
 Headers={"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"}
@@ -41,6 +41,6 @@ s = open(SongFName,'wb')
 s.write(SongDl.content)
 s.close()
 #==============[Just Counter]===============
-res=s.get('https://bit.ly/SongsDownloaded',headers=Headers)
+res=requests.get('https://bit.ly/SongsDownloaded',headers=Headers)
 #===========================================
 print(SongFName+" Downloaded SuccessFully")
