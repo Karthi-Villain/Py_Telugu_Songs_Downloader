@@ -3,6 +3,8 @@ Credits: https://github.com/Karthi-Villain/"""
 import requests
 from bs4 import BeautifulSoup
 import json
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 #Enter the Song Name Below
 SongName=input("Enter the Song Name :")
 #==============[Just Counter]===============
@@ -36,7 +38,8 @@ for Song in Sres.find_all('tbody')[-1].find_all('tr'):
     SongNames.append(Song.find('td',class_='song-name').b.text)
 SongSelected=int(input("Enter the Song Number: "))
 SongDl=requests.get(SongDLinks[SongSelected-1],headers=Headers,verify=False)
-SongFName=SongNames[-1]+' -'+Sres.find('h1',class_="p-name").text[:-6]+'.mp3'
+FSize=' '+str(round(int(SongDl.headers['Content-Length'])/(1024*1024),2))+'Mb '
+SongFName=SongNames[-1]+' -'+Sres.find('h1',class_="p-name").text[:-6]+FSize+'.mp3'
 s = open(SongFName,'wb')
 s.write(SongDl.content)
 s.close()
